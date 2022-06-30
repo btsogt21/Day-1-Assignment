@@ -30,13 +30,12 @@ Go
 
 -- 7. Write a query that generates the following result set  from Production.Product:
 Select 'NAME: ' + Name + ' -- Color: ' + Color [Name and Color]
-from Production.Product Where Name in ('LL Crankarm', 'ML Crankarm', 'HL Crankarm', 'Chainring Bolts', 'Chainring Nut', 'Chainring')
-and Color in ('Black', 'Silver')
+from Production.Product Where Name is not Null and Color is Not NULL
 go
 -- with numbering concatenated in result
 Select concat(ROW_NUMBER() over (Order by Color),'. NAME: ',Name, ' -- Color: ',Color) as [Number, Name, and Color]
-from Production.Product Where Name in ('LL Crankarm', 'ML Crankarm', 'HL Crankarm', 'Chainring Bolts', 'Chainring Nut', 'Chainring')
-and Color in ('Black', 'Silver')
+from Production.Product Where Name is not null
+and Color is not null
 go
 
 -- 8. Write a query to retrieve the columns ProductID and Name from the Production.Product table filtered by ProductID from 400 to 500
@@ -91,6 +90,7 @@ from (
     group by Color
     having COUNT(*) = 1
 ) AS [subtable]
+order by [Colors Appearing Only Once]
 go
 -- 15. Write a query that retrieves the unique combination of columns ProductSubcategoryID and Color from the Production.Product table. Format and sort so the result set accordingly to the following. We do not want any rows that are NULL.in any of the two columns in the result.
 
